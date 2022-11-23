@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+
+{% block titleandlinks %}
+{% load static %}
+<title>Building Classification</title>
+<link rel="stylesheet" href="{% static 'css/mnist_app.css' %}">
+{% endblock %}
+
+{% block header %}
+<h2 p-0 m-0 style=" color: blue; margin: auto;">Building Classification</h2>
+{% endblock %}
+
+{% block content %}
+<!-- something extended heare-->
+<div style="margin-top: 30px;margin-bottom: 50px; text-align: center;">
+  <h4>Choose building image to detect</h4>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <select name="model" id="model" style="padding: 3px;">
+      <option value="Hybrid CNN">Hybrid CNN</option>
+      <option value="Sequencial CNN">Sequencial CNN</option>
+      <option value="MobileNet">MobileNet</option>
+      <option value="DenseNet">DenseNet</option>
+      <option value="VGG16">VGG16</option>
+      <option value="Xception">Xception</option>
+      <option value="ResNet">ResNet</option>
+    </select>
+    <input type="file" name="document">
+    <button type="submit">Upload</button>
+  </form>
+
+  <div style="margin-top: 50px">
+    {% if url %}
+    <img style="min-width: 45%; max-width: 45%;" src="/{{ url }}" alt="img">
+    {% endif %}
+  </div>
+
+  <div style="margin-top: 50px">
+    {% if message is None %}
+    <h2>Choose building image to detect</h2>
+    {% else %}
+    <h2>{{message}}</h2>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
